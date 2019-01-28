@@ -1,0 +1,17 @@
+movie_cast  movies    
+~~~~~
+500
+5090
+~~~~~
+cast_index    movie_index   scores_index
+~~~~~
+PROP
+52.2
+~~~~~
+~~~~~
+~~~~~
+~~~~~
+~~~~~
+~~~~~
+~~~~~
+~~~~~

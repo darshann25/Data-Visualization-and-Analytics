@@ -13,7 +13,17 @@ DROP TABLE IF EXISTS movie_overview;
 
 -- [insert your SQL statement(s) BELOW this line]
 
+CREATE TABLE movies (
+    id INTEGER,
+    name TEXT,
+    score INTEGER
+);
 
+CREATE TABLE movie_cast (
+    movie_id INTEGER,
+    cast_id INTEGER,
+    cast_name TEXT
+);
 
 
 -- [insert your SQL statement(s) ABOVE this line]
@@ -28,7 +38,9 @@ DROP TABLE IF EXISTS movie_overview;
 
 -- [insert your SQLite command(s) BELOW this line]
 
-
+.mode csv
+.import ./movie-name-score.txt movies
+.import ./movie-cast.txt movie_cast
 
 
 -- [insert your SQLite command(s) ABOVE this line]
@@ -46,7 +58,14 @@ SELECT COUNT(*) FROM movie_cast;
 
 -- [insert your SQL statement(s) BELOW this line]
 
+CREATE INDEX scores_index
+ON movies (score);
 
+CREATE INDEX cast_index
+ON movie_cast (cast_id);
+
+CREATE INDEX movie_index
+ON movies (id);
 
 
 -- [insert your SQL statement(s) ABOVE this line]
@@ -61,7 +80,10 @@ SELECT COUNT(*) FROM movie_cast;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
+SELECT 
+    (COUNT(*) / 500.0) * 100 AS PROP
+FROM movies
+WHERE score > 50;
 
 
 -- [insert your SQL statement(s) ABOVE this line]
@@ -75,7 +97,15 @@ SELECT COUNT(*) FROM movie_cast;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
+SELECT
+    id,
+    name,
+    score
+FROM movies
+ORDER BY
+    score DESC,
+    name ASC
+LIMIT 7;
 
 
 -- [insert your SQL statement(s) ABOVE this line]
