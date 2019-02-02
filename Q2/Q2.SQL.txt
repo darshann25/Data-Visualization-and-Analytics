@@ -192,8 +192,17 @@ SELECT AVG(average_movie_score) FROM good_collaboration;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
-
+SELECT
+    cast_id AS cast_id,
+    cast_name AS cast_name,
+    AVG(average_movie_score) AS collaboration_score
+FROM
+(SELECT cast_id, cast_name, average_movie_score FROM movie_cast a INNER JOIN good_collaboration b ON a.cast_id == b.cast_member_id1
+UNION
+SELECT cast_id, cast_name, average_movie_score FROM movie_cast a INNER JOIN good_collaboration b ON a.cast_id == b.cast_member_id2)
+GROUP BY cast_id
+ORDER BY collaboration_score DESC, cast_name ASC
+LIMIT 5;
 
 -- [insert your SQL statement(s) ABOVE this line]
 
@@ -206,7 +215,16 @@ SELECT AVG(average_movie_score) FROM good_collaboration;
 
 -- [insert your SQL statement(s) BELOW this line]
 
+CREATE VIRTUAL TABLE movie_overview USING fts4(
+    id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    overview TEXT NOT NULL,
+    popularity DECIMAL NOT NULL
+);
 
+.mode csv
+.import ./movie-overview.txt movie_overview
 
 
 -- [insert your SQL statement(s) ABOVE this line]
@@ -217,7 +235,10 @@ SELECT AVG(average_movie_score) FROM good_collaboration;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
+SELECT
+    COUNT(*) AS count_overview
+FROM movie_overview
+WHERE overview MATCH 'fight';
 
 
 -- [insert your SQL statement(s) ABOVE this line]
@@ -231,6 +252,10 @@ SELECT AVG(average_movie_score) FROM good_collaboration;
 
 -- [insert your SQL statement(s) BELOW this line]
 
+SELECT
+    id
+FROM movie_overview
+WHERE overview MATCH 'love NEAR/5 story';
 
 
 
