@@ -102,9 +102,7 @@ SELECT
     name,
     score
 FROM movies
-ORDER BY
-    score DESC,
-    name ASC
+ORDER BY score DESC, name ASC
 LIMIT 7;
 
 
@@ -119,8 +117,14 @@ LIMIT 7;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
-
+SELECT
+    cast_id,
+    cast_name,
+    COUNT(movie_id) AS movie_count
+FROM movie_cast
+GROUP BY cast_id, cast_name
+ORDER BY movie_count DESC, cast_name ASC
+LIMIT 5;
 
 -- [insert your SQL statement(s) ABOVE this line]
 
@@ -133,7 +137,18 @@ LIMIT 7;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
+SELECT
+    cast_id,
+    cast_name,
+    AVG(score) AS average_score
+FROM movie_cast a
+INNER JOIN movies b
+ON a.movie_id == b.id
+WHERE b.score > 50
+GROUP BY cast_id, cast_name
+HAVING COUNT(b.id) > 2
+ORDER BY movie_score DESC, cast_name ASC
+LIMIT 10;
 
 
 -- [insert your SQL statement(s) ABOVE this line]
@@ -147,8 +162,20 @@ LIMIT 7;
 
 -- [insert your SQL statement(s) BELOW this line]
 
-
-
+CREATE VIEW good_collaboration AS
+SELECT
+    a.cast_id as cast_member_id1,
+    b.cast_id as cast_member_id2,
+    COUNT(c.id) as movie_count,
+    AVG(c.score) as average_movie_score
+FROM movie_cast a
+INNER JOIN movie_cast b
+ON a.movie_id == b.movie_id
+INNER JOIN movies c
+ON a.movie_id == c.id
+GROUP BY cast_member_id1, cast_member_id2
+HAVING movie_count >= 3 AND average_movie_score >= 40 AND cast_member_id1 < cast_member_id2 AND cast_member_id1 <> cast_member_id2
+ORDER BY movie_count DESC, average_movie_score DESC, cast_member_id1 ASC;
 
 -- [insert your SQL statement(s) ABOVE this line]
 

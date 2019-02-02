@@ -49,6 +49,7 @@ def main(api_key):
                 # API Call to find first 5 similiar movies to Movie ID
                 conn.request("GET", "/3/movie/" + movie_id + "/similar?page=1&language=en-US&api_key=2eed0936c8b151d1099e2318eb1085b8", payload)
                 res = conn.getresponse()
+                time.sleep(0.05)
                 sim_movies_data = json.loads(res.read().decode('utf-8'))
 
                 SIM_MOVIES_DATA_MAX = 5
