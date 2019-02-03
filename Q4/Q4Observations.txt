@@ -1,0 +1,6 @@
+c.i.a. 47 
+c.i.b. 5
+c.ii. 566
+c.iii. value.toString().replace("","Unbranded")
+c.iv. if(value > 100,1,0)
+c.v. if(or(value.contains("discount"),value.contains("offer"),value.contains("sale")),1,0)
