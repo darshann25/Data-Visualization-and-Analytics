@@ -81,7 +81,7 @@ ON movies (id);
 -- [insert your SQL statement(s) BELOW this line]
 
 SELECT 
-    (COUNT(*) / 500.0) * 100 AS PROP
+    (COUNT(*) / 500.0) * 100 AS prop
 FROM movies
 WHERE score > 50;
 
@@ -147,7 +147,7 @@ ON a.movie_id == b.id
 WHERE b.score > 50
 GROUP BY cast_id, cast_name
 HAVING COUNT(b.id) > 2
-ORDER BY movie_score DESC, cast_name ASC
+ORDER BY average_score DESC, cast_name ASC
 LIMIT 10;
 
 
