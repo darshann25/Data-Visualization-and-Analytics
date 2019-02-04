@@ -1,0 +1,5 @@
+For symmetrical and compact view of the graph, I have chosen the Fruchterman Reingold layout. This layout reduces edge crossing and node overlap.
+The size of the nodes increases as the degree of the nodes increases from 1 to 35.
+The color of the nodes changes from white to blue as the modularity rank increases from 0 to 35.
+Text labels appear on selecting a particular node, and in addition neighbors are highlighted as well.
+Clusters are represented using modularity community detection algorithms. There are 36 clusters which are color coded as gradients from white to blue.

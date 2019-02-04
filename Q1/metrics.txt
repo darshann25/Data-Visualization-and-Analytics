@@ -1,0 +1,3 @@
+Average node degree is the cumulative sum of all degree values divided by the number of nodes present in the graph. For TheMovieDB dataset, average degree is 1.683.
+Diameter of the graph or network diameter is the maximum distance between any pair of nodes in the graph. For TheMovieDB dataset, network diameter is 9.
+Average Path Length is the average distance between every pair of nodes. For TheMovieDB dataset, average path length is 2.61.
