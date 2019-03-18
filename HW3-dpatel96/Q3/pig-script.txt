@@ -5,5 +5,5 @@ t1 = FILTER trigrams BY occurrences >= 400 AND books >= 15;
 t2 = GROUP t1 BY trigram;
 t3 = FOREACH t2 GENERATE group AS trigram, (SUM(t1.occurrences) / SUM(t1.books)) AS occ_per_book;
 t4 = ORDER t3 BY occ_per_book DESC, trigram ASC;
-dump t4;
-STORE t4 INTO 's3://cse6242oan2019springdpatel96/pig-output/pig-output-big.txt' using PigStorage('\t');
+t5 = limit t4 10;
+STORE t5 INTO 's3://cse6242oan2019springdpatel96/pig-output/pig-output-big.txt' using PigStorage('\t');
