@@ -2,6 +2,7 @@ from decision_tree import DecisionTree
 import csv
 import numpy as np  # http://www.numpy.org
 import ast
+import random
 
 # This starter code does not run. You will have to add your changes and
 # turn in code that runs properly. 
@@ -54,6 +55,11 @@ class RandomForest(object):
 
         samples = [] # sampled dataset
         labels = []  # class labels for the sampled records
+
+        for i in range(n):
+            rand_row = random.randint(0, n-1)
+            samples.append(XX[rand_row][:-1])
+            labels.append(XX[rand_row][-1])
         return (samples, labels)
 
 
@@ -68,13 +74,14 @@ class RandomForest(object):
     def fitting(self):
         # TODO: Train `num_trees` decision trees using the bootstraps datasets
         # and labels by calling the learn function from your DecisionTree class.
-        pass      
+        for i in range(len(self.decision_trees)):
+            self.decision_trees[i].learn(self.bootstraps_datasets[i], self.bootstraps_labels[i])      
 
 
-    def voting(self, X):
+    def voting(self, X, y_truth):
         y = []
 
-        for record in X:
+        for  n, record in enumerate(X):
             # Following steps have been performed here:
             #   1. Find the set of trees that consider the record as an 
             #      out-of-bag sample.
@@ -95,7 +102,7 @@ class RandomForest(object):
                 # TODO: Special case 
                 #  Handle the case where the record is not an out-of-bag sample
                 #  for any of the trees. 
-                pass
+                y = np.append(y, y_truth[n])
             else:
                 y = np.append(y, np.argmax(counts))
 
@@ -140,7 +147,7 @@ def main():
 
     # Calculating an unbiased error estimation of the random forest
     # based on out-of-bag (OOB) error estimate.
-    y_predicted = randomForest.voting(X)
+    y_predicted = randomForest.voting(X,np.array(y, dtype=int))
 
     # Comparing predicted and true labels
     results = [prediction == truth for prediction, truth in zip(y_predicted, y)]

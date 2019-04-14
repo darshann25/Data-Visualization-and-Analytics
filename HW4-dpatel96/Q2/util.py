@@ -88,6 +88,8 @@ def partition_classes(X, y, split_attribute, split_val):
     y_right = []
     
     check = X[0][split_attribute]
+    attr_type = "categorical"
+
     if type(check) is int or type(check) is float :
         for row in range(len(X)):
             if X[row][split_attribute] <= split_val:
@@ -96,6 +98,7 @@ def partition_classes(X, y, split_attribute, split_val):
             else:
                 X_right.append(X[row])
                 y_right.append(y[row])
+        attr_type = "continuous"
     else:
         for row in range(len(X)):
             if X[row][split_attribute] == split_val:
@@ -106,7 +109,7 @@ def partition_classes(X, y, split_attribute, split_val):
                 y_right.append(y[row])
 
 
-    return (X_left, X_right, y_left, y_right)
+    return (X_left, X_right, y_left, y_right, attr_type)
 
 def information_gain(previous_y, current_y):
     # Inputs:
