@@ -13,8 +13,15 @@ def entropy(class_y):
     #    entropy([0,0,0,1,1,1,1,1,1]) = 0.92
         
     entropy = 0
+    _, counts = np.unique(class_y, return_counts=True)
+    freqs = counts.astype("float")/len(class_y)
+
+    for p in freqs:
+        if p != 0.0:
+            entropy -= p * np.log2(p)
     return entropy
 
+print(entropy([0,0,0,1,1,1,1,1,1]))
 
 def partition_classes(X, y, split_attribute, split_val):
     # Inputs:
