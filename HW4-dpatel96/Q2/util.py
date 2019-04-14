@@ -21,8 +21,6 @@ def entropy(class_y):
             entropy -= p * np.log2(p)
     return entropy
 
-print(entropy([0,0,0,1,1,1,1,1,1]))
-
 def partition_classes(X, y, split_attribute, split_val):
     # Inputs:
     #   X               : data containing all attributes
@@ -89,9 +87,27 @@ def partition_classes(X, y, split_attribute, split_val):
     y_left = []
     y_right = []
     
+    check = X[0][split_attribute]
+    if type(check) is int or type(check) is float :
+        for row in range(len(X)):
+            if X[row][split_attribute] <= split_val:
+                X_left.append(X[row])
+                y_left.append(y[row])
+            else:
+                X_right.append(X[row])
+                y_right.append(y[row])
+    else:
+        for row in range(len(X)):
+            if X[row][split_attribute] == split_val:
+                X_left.append(X[row])
+                y_left.append(y[row])
+            else:
+                X_right.append(X[row])
+                y_right.append(y[row])
+
+
     return (X_left, X_right, y_left, y_right)
 
-    
 def information_gain(previous_y, current_y):
     # Inputs:
     #   previous_y: the distribution of original labels (0's and 1's)
@@ -112,8 +128,9 @@ def information_gain(previous_y, current_y):
     info_gain = 0.45915
     """
 
-    info_gain = 0
+    info_gain = entropy(previous_y)
+
+    for splits in current_y:
+        info_gain -= (float) (len(splits) * entropy(splits) / len(previous_y))
 
     return info_gain
-    
-    
