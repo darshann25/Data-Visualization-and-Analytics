@@ -8,75 +8,61 @@
 **********************************************
 Q 3.1
 
-Linear Regression - Training Accuracy: 
-Linear Regression - Testing Accuracy: 
+Linear Regression - Training Accuracy: 0.64
+Linear Regression - Testing Accuracy: 0.64
 
-Random Forest - Training Accuracy: 
-Random Forest - Testing Accuracy: 
+Random Forest - Training Accuracy: 0.65
+Random Forest - Testing Accuracy: 0.65
 
-SVM - Training Accuracy: 
-SVM - Testing Accuracy: 
+SVM - Training Accuracy: 0.71
+SVM - Testing Accuracy: 0.46
 
 **********************************************
 
 Q 3.2 Hyperparameter Tuning
 
-Random Forest - n_estimators values tested (at least 3): 
-Random Forest - max_depth values tested (at least 3): 
+Random Forest - n_estimators values tested (at least 3): [100, 200, 300]
+Random Forest - max_depth values tested (at least 3): [80, 90, 100]
 
-Random Forest - Best combination of parameter values - n_estimators: 
-Random Forest - Best combination of parameter values - max_depth: 
+Random Forest - Best combination of parameter values - n_estimators: 80
+Random Forest - Best combination of parameter values - max_depth: 300
 
-Random Forest - Testing Accuracy before tuning (default parameters):
-Random Forest - Testing Accuracy after tuning:
+Random Forest - Testing Accuracy before tuning (default parameters): 0.65
+Random Forest - Testing Accuracy after tuning: 0.93
 
-SVM - Kernel Values tested: 
-SVM - C values tested (at Least 3): 
-SVM - Best combination of parameter values - Kernel: 
-SVM - Best combination of parameter values - C: 
+SVM - Kernel Values tested: ['linear', 'rbf']
+SVM - C values tested (at Least 3): [0.0001, 0.1, 100]
+SVM - Best combination of parameter values - Kernel: 'rbf'
+SVM - Best combination of parameter values - C: 100
 
 *********************************************
 
 Q 3.3
 
-SVM - Highest mean testing/cross-validated accuracy (best score): 
-SVM - Mean train score: 
-SVM Mean fit time: 
+SVM - Highest mean testing/cross-validated accuracy (best score): 0.82
+SVM - Mean train score: 0.83
+SVM Mean fit time: 4.08
 
 *********************************************
 
 Q 3.4 Feature Importance - WITH THE MODEL TRAINED IN Q 3.1
 
-Random Forest  - Most important feature (e.g. X5): 
-Random Forest  - Least important feature (e.g. X1): 
+Random Forest  - Most important feature (e.g. X5): X7
+Random Forest  - Least important feature (e.g. X1): X6
 
 *********************************************
 
 Q 3.5
 
-Best Classifier and why (in at most 50 words): 
+Best Classifier and why (in at most 50 words): Random Forest, since after tuning it gives an accuracy of 0.93 as compared to second best accuracy of 0.82 given by SVC.
 
 *********************************************
 
 Q 3.6 Principal Component Analysis
 
-"PCA - Percentage of variance explained by each of the selected components (enter the entire array as [0.12, …, 0.012])": 
-"PCA - Singular values corresponding to each of the selected components (enter the entire array as [0.09, …, 0.037])": 
+"PCA - Percentage of variance explained by each of the selected components (enter the entire array as [0.12, …, 0.012])": [0.37621847 0.34132531 0.15698888 0.06358059 0.03440553 0.00924896
+ 0.00648665 0.00427297 0.00357153 0.0019226 ]
+"PCA - Singular values corresponding to each of the selected components (enter the entire array as [0.09, …, 0.037])": [235.01143877 223.84798625 151.81105308  96.61203088  71.06947312
+  36.84812871  30.85880931  25.04573858  22.89793107  16.80016161]
 
 *********************************************
-
-Training Accuracy for Linear Regression : 0.6420942208659165
-Test Accuracy for Linear Regression : 0.6392968402314196
-Training Accuracy for Random Forest Classifier : 0.6540148769788289
-Test Accuracy for Random Forest Classifier : 0.653093012906097
-Feature Importance Indices : [ 7  2  4 10  9  3  8  1 11 12 13  0  5  6]
-Best Parameters : {'max_depth': 80, 'n_estimators': 300}
-Best Score : 0.9244707228685867
-Training Accuracy for SVC : 0.7126645050543582
-Test Accuracy for SVC : 0.45994659546061417
-Best Parameters : {'C': 100, 'kernel': 'rbf'}
-Best Score : 0.8194735838260537
-Percentage of variance explained by each of the selected components : [0.37621847 0.34132531 0.15698888 0.06358059 0.03440553 0.00924896
- 0.00648665 0.00427297 0.00357153 0.0019226 ]
-The singular values corresponding to each of the selected components : [235.01143877 223.84798625 151.81105308  96.61203088  71.06947312
-  36.84812871  30.85880931  25.04573858  22.89793107  16.80016161]

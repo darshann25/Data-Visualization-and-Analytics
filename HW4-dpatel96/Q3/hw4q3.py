@@ -133,6 +133,7 @@ gridClf = GridSearchCV(clf, param_grid, cv=10)
 gridClf.fit(x_train, y_train)
 print("Best Parameters : " + str(gridClf.best_params_))
 print("Best Score : " + str(gridClf.best_score_))
+print("CV Results : \n" + str(gridClf.cv_results_ ))
 
 # ######################################### Principal Component Analysis #################################################
 # XXX

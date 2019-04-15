@@ -75,7 +75,7 @@ class RandomForest(object):
         # TODO: Train `num_trees` decision trees using the bootstraps datasets
         # and labels by calling the learn function from your DecisionTree class.
         for i in range(len(self.decision_trees)):
-            self.decision_trees[i].learn(self.bootstraps_datasets[i], self.bootstraps_labels[i])      
+            self.decision_trees[i].learn(self.bootstraps_datasets[i], self.bootstraps_labels[i],[])      
 
 
     def voting(self, X, y_truth):
@@ -105,7 +105,7 @@ class RandomForest(object):
                 y = np.append(y, y_truth[n])
             else:
                 y = np.append(y, np.argmax(counts))
-
+            
         return y
 
 # DO NOT change the main function apart from the forest_size parameter!
@@ -116,7 +116,7 @@ def main():
     numerical_cols = numerical_cols=set([i for i in range(0,43)]) # indices of numeric attributes (columns)
 
     # Loading data set
-    print("reading hw4-data")
+    # print("reading hw4-data")
     with open("hw4-data.csv") as f:
         for line in csv.reader(f, delimiter=","):
             xline = []
@@ -132,17 +132,17 @@ def main():
 
     # TODO: Initialize according to your implementation
     # VERY IMPORTANT: Minimum forest_size should be 10
-    forest_size = 10
-    
+    forest_size = 12
+
     # Initializing a random forest.
     randomForest = RandomForest(forest_size)
 
     # Creating the bootstrapping datasets
-    print("creating the bootstrap datasets")
+    # print("creating the bootstrap datasets")
     randomForest.bootstrapping(XX)
 
     # Building trees in the forest
-    print("fitting the forest")
+    # print("fitting the forest")
     randomForest.fitting()
 
     # Calculating an unbiased error estimation of the random forest
@@ -155,9 +155,9 @@ def main():
     # Accuracy
     accuracy = float(results.count(True)) / float(len(results))
 
-    print("accuracy: %.4f" % accuracy)
-    print("OOB estimate: %.4f" % (1-accuracy))
-
+    # print("forest size: " + str(forest_size))
+    # print("accuracy: %.4f" % accuracy)
+    # print("OOB estimate: %.4f\n" % (1-accuracy))
 
 if __name__ == "__main__":
     main()

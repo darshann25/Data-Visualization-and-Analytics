@@ -11,19 +11,21 @@ class DecisionTree(object):
         return
 
     def optimizeCurrentAttributeGain(self, X, y, current_attr):
-        max_gain = 0
-        max_split_point = 0
-        values, _ = np.unique(X, return_counts=True)
-        
-        for split_point in values:
-            _, _, y_left, y_right, _ = partition_classes(X,y,current_attr,split_point)
-            gain = information_gain(y,[y_left, y_right])
+        # max_gain = 0
+        # max_split_point = 0
+        values, counts = np.unique(X, return_counts=True)
+        ind = np.argmax(counts)
+        return values[ind]
 
-            if gain > max_gain: 
-                max_gain = gain
-                max_split_point = split_point
+        # for split_point in values:
+        #     _, _, y_left, y_right, _ = partition_classes(X,y,current_attr,split_point)
+        #     gain = information_gain(y,[y_left, y_right])
 
-        return max_split_point
+        #     if gain > max_gain: 
+        #         max_gain = gain
+        #         max_split_point = split_point
+
+        # return max_split_point
 
     def learn(self, X, y, visited=[]):
         # TODO: Train the decision tree (self.tree) using the the sample X and labels y
@@ -37,6 +39,7 @@ class DecisionTree(object):
         #    (eg. split attribute and split value)
         
         # Handle case when all conditions have been tested
+        
         if len(y) == 0:
             self.tree["label"] = "failure"
             return
@@ -59,11 +62,11 @@ class DecisionTree(object):
         y_right = []
 
         for curr_attr in range(len(X[0])):
-
+            if curr_attr in visited: continue
             split_point = self.optimizeCurrentAttributeGain(X,y,curr_attr)
             X_l, X_r, y_l, y_r, attr_type = partition_classes(X,y,curr_attr,split_point)
             gain = information_gain(y,[y_l, y_r])
-
+        
             if gain > max_gain:
                 max_gain = gain
                 max_index = curr_attr
@@ -72,17 +75,21 @@ class DecisionTree(object):
                 y_left = y_l
                 y_right = y_r
                 max_index_type = attr_type
+                visited.append(max_index)
+        
+        self.tree["label"] = "node"
+        self.tree["attr"] = max_index
+        self.tree["attr_type"] = max_index_type
+        self.tree["split"] = self.optimizeCurrentAttributeGain(X,y,max_index)
         
         subtreeLeft = DecisionTree()
         subtreeRight = DecisionTree()
         subtreeLeft.learn(X_left, y_left, visited)
         subtreeRight.learn(X_right, y_right, visited)
-        self.tree["label"] = "node"
-        self.tree["attr"] = max_index
-        self.tree["attr_type"] = max_index_type
-        self.tree["split"] = self.optimizeCurrentAttributeGain(X,y,max_index)
+        
         self.tree["left_child"] = subtreeLeft
-        self.tree["right_child"] = subtreeRight  
+        self.tree["right_child"] = subtreeRight
+
         return
 
 
